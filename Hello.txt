@@ -15,4 +15,8 @@ HelloGit14
 HelloGit15 master text
 HelloGit16 hot-fix test
 New sentence: GitHub-git-demo
+<<<<<<< HEAD
 The new adding by user1. 
+=======
+New sentences: Test
+>>>>>>> 33fbe3f5dc0ee39ab92a288a3f9dd6377f07482c
