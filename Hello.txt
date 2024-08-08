@@ -15,3 +15,4 @@ HelloGit14
 HelloGit15 master text
 HelloGit16 hot-fix test
 New sentence: GitHub-git-demo
+New sentences: Test
