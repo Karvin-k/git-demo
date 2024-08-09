@@ -17,3 +17,4 @@ HelloGit16 hot-fix test
 New sentence: GitHub-git-demo
 The new adding by user1. 
 New sentences: Test
+The sentences by Karvin-user2.
