@@ -18,3 +18,4 @@ New sentence: GitHub-git-demo
 The new adding by user1. 
 New sentences: Test
 The sentences by Karvin-user2.
+Karvin-user2修改的可以
