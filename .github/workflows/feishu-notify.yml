@@ -1,0 +1,38 @@
+name: Notify Feishu
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  issue_comment:
+    types: [created]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send PR notification to Feishu
+        if: github.event_name == 'pull_request'
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          USER="${{ github.event.pull_request.user.login }}"
+          ACTION="${{ github.event.action }}"
+          MSG="🔔 PR ${ACTION}\n用户: ${USER}\n标题: ${PR_TITLE}\n链接: ${PR_URL}"
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"$MSG\"}}" \
+            $FEISHU_WEBHOOK
+
+      - name: Send comment notification to Feishu
+        if: github.event_name == 'issue_comment'
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+        run: |
+          PR_URL="${{ github.event.issue.html_url }}"
+          USER="${{ github.event.comment.user.login }}"
+          BODY="${{ github.event.comment.body }}"
+          MSG="💬 新评论\n用户: ${USER}\n内容: ${BODY}\n链接: ${PR_URL}"
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"$MSG\"}}" \
+            $FEISHU_WEBHOOK
